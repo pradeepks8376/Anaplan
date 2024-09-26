@@ -12,7 +12,7 @@ public class Dashboard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -22,5 +22,13 @@ public class Dashboard {
 
     private String title;
 
+    public Dashboard() {
 
+    }
+    public Dashboard(Long id, String title, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.title = title;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }

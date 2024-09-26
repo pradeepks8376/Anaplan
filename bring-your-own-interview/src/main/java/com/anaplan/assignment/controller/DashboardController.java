@@ -1,5 +1,6 @@
 package com.anaplan.assignment.controller;
 
+import com.anaplan.assignment.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,8 +35,13 @@ public class DashboardController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/dashboards")
-    public List<Dashboard> getDashboards() {
-       return dashboardService.getAllDashboards();
+    public ResponseEntity<List<Dashboard>>  getDashboards() {
+        List<Dashboard> dashboards = dashboardService.getAllDashboards();
+        if (dashboards == null || dashboards.isEmpty()) {
+            throw new ResourceNotFoundException("No dashboard found: ");
+        }
+      //  return new ResponseEntity<Dashboard>(dashboards, HttpStatus.OK);
+        return ResponseEntity.ok(dashboards);
     }
 
 }
