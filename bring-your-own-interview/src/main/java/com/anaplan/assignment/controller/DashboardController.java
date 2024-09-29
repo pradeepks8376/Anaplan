@@ -1,14 +1,10 @@
 package com.anaplan.assignment.controller;
 
-import com.anaplan.assignment.exception.ResourceNotFoundException;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import com.anaplan.assignment.exception.DashboardNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +34,8 @@ public class DashboardController {
     public ResponseEntity<List<Dashboard>>  getDashboards() {
         List<Dashboard> dashboards = dashboardService.getAllDashboards();
         if (dashboards == null || dashboards.isEmpty()) {
-            throw new ResourceNotFoundException("No dashboard found: ");
+            throw new DashboardNotFoundException("No dashboard found: ");
         }
-      //  return new ResponseEntity<Dashboard>(dashboards, HttpStatus.OK);
         return ResponseEntity.ok(dashboards);
     }
 
